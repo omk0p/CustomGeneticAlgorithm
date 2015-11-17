@@ -2,13 +2,27 @@ package c.m;
 
 import java.util.Random;
 
+import c.m.impl.FF;
+import c.m.impl.Funcs;
+
 public class Individual
 {
-    public static final int SIZE = 500;
+    public static final int SIZE = 10;
     private int[] genes = new int[SIZE];
     private int fitnessValue;
+    private FF ff;
 
-    public Individual() {}
+    public Individual(FF ff) {
+      this.ff = ff;
+    }
+
+    public FF getFf() {
+      return ff;
+    }
+
+    public void setFf(FF ff) {
+      this.ff = ff;
+    }
 
     public int getFitnessValue() {
         return fitnessValue;
@@ -41,9 +55,10 @@ public class Individual
 
     public int evaluate() {
         int fitness = 0;
-        for(int i=0; i<SIZE; ++i) {
+        /*for(int i=0; i<SIZE; ++i) {
             fitness += this.getGene(i);
-        }
+        }*/
+        fitness = ff.result(Funcs.split(genes), ff.sampleInputs(), ff.sampleTargets());
         this.setFitnessValue(fitness);
 
         return fitness;

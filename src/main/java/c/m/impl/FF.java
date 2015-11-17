@@ -6,4 +6,11 @@ package c.m.impl;
 public interface FF {
 
     int result(String bits, int[] input, int[] targets);
+    
+    int[] sampleInputs();
+    
+    int[] sampleTargets();
+    
+    int[] outputs();
 }
+

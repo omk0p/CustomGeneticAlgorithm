@@ -2,6 +2,10 @@ package c.m;
 
 import java.util.Random;
 
+import c.m.impl.FF;
+import c.m.impl.Funcs;
+import c.m.impl.LinearFF;
+
 public class Population
 {
     final static int ELITISM_K = 5;
@@ -9,6 +13,9 @@ public class Population
     final static int MAX_ITER = 2000;             // max number of iterations
     final static double MUTATION_RATE = 0.05;     // probability of mutation
     final static double CROSSOVER_RATE = 0.7;     // probability of crossover
+    final static boolean MINIMIZATION = true;     // minimization or maximization
+    
+    final static FF ff = new LinearFF();
 
     private static Random m_rand = new Random();  // random-number generator
     private Individual[] m_population;
@@ -16,10 +23,10 @@ public class Population
 
     public Population() {
         m_population = new Individual[POP_SIZE];
-
+        
         // init population
         for (int i = 0; i < POP_SIZE; i++) {
-            m_population[i] = new Individual();
+            m_population[i] = new Individual(ff);
             m_population[i].randGenes();
         }
 
@@ -75,14 +82,16 @@ public class Population
             }
         }
 
-        //return m_population[idxMin];      // minimization
-        return m_population[idxMax];        // maximization
+        if (MINIMIZATION)
+          return m_population[idxMin];      // minimization
+        else
+          return m_population[idxMax];        // maximization
     }
 
     public static Individual[] crossover(Individual indiv1,Individual indiv2) {
         Individual[] newIndiv = new Individual[2];
-        newIndiv[0] = new Individual();
-        newIndiv[1] = new Individual();
+        newIndiv[0] = new Individual(ff);
+        newIndiv[1] = new Individual(ff);
 
         int randPoint = m_rand.nextInt(Individual.SIZE);
         int i;
@@ -149,8 +158,10 @@ public class Population
             // reevaluate current population
             pop.evaluate();
             System.out.print("Total Fitness = " + pop.totalFitness);
+            Individual bestIndividual = pop.findBestIndividual();
             System.out.println(" ; Best Fitness = " +
-                pop.findBestIndividual().getFitnessValue()); 
+                bestIndividual.getFitnessValue());
+            Funcs.print(bestIndividual.getFf().outputs());
         }
 
         // best indiv
