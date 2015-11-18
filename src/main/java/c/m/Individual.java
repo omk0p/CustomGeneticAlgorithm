@@ -58,7 +58,7 @@ public class Individual
         /*for(int i=0; i<SIZE; ++i) {
             fitness += this.getGene(i);
         }*/
-        fitness = ff.result(Funcs.split(genes), ff.sampleInputs(), ff.sampleTargets());
+        fitness = (int) ff.result(Funcs.split(genes), ff.sampleInputs(), ff.sampleTargets());//TODO lossy conversion
         this.setFitnessValue(fitness);
 
         return fitness;

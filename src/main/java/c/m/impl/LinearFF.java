@@ -6,24 +6,24 @@ package c.m.impl;
  */
 public class LinearFF implements FF{
 
-    public int[] sampleInputs(){
-      int[] r = {1000, 2000, 3000, 4000, 5000};
+    public long[] sampleInputs(){
+      long[] r = {1, 2, 3, 4, 5};
       return r;
     }
     
-    public int[] sampleTargets(){
-      int[] r = {5000, 10000, 15000, 20000, 25000};
+    public long[] sampleTargets(){
+      long[] r = {5, 10, 15, 20, 25};
       return r;
     }
   
-    int k;
+    long k;
     
     @Override
-    public int result(String bits, int[] inputs, int[] targets) {
+    public long result(String bits, long[] inputs, long[] targets) {
         this.k = Integer.parseInt(bits, 2);
-        int[] output = new int[inputs.length];
+        long[] output = new long[inputs.length];
         int i = 0;
-        for (int in : inputs){
+        for (long in : inputs){
             output[i] = in*k;
             i++;
         }
@@ -31,10 +31,10 @@ public class LinearFF implements FF{
     }
 
     @Override
-    public int[] outputs() {
-      int[] output = new int[sampleInputs().length];
+    public long[] outputs() {
+      long[] output = new long[sampleInputs().length];
       int i = 0;
-      for (int in : sampleInputs()){
+      for (long in : sampleInputs()){
         output[i] = in*k;
         i++;
       }

@@ -3,14 +3,15 @@ package c.m.impl;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 /**
  * Created by Pavlo on 17.11.2015.
  */
 public class Funcs {
   
-  public static int[] fillArray(int size, int maxRand){
-    int[] genes = new int[size];
+  public static long[] fillArray(int size, int maxRand){
+    long[] genes = new long[size];
     Random m_rand = new Random();
     for (int i = 0; i < genes.length; i++) {
       genes[i] = m_rand.nextInt(maxRand);
@@ -22,8 +23,8 @@ public class Funcs {
     System.out.println(s);
   }
   
-  public static void print(int[] arr){
-    System.out.println(Arrays.toString(arr));
+  public static void print(long[] arr){
+    System.out.print(Arrays.toString(arr) + " ");
   }
   
   public static String split(int[] arr){
@@ -33,8 +34,9 @@ public class Funcs {
     }
     return result;
   }
-  
-    public static int mse(int... ints) {
+
+    //TODO needs rework - see function below (^2, sqrt - for mse)
+    /*public static int mse(int... ints) {
         int arMean = arithMean(ints);
         int[] diffs = new int[ints.length];
         int i = 0;
@@ -44,20 +46,21 @@ public class Funcs {
             i++;
         }
         return arithMean(diffs);
-    }
+    }*/
 
-    public static int mse(int[] ints, int[] targets) {
-        int[] diffs = new int[ints.length];
+    public static long mse(long[] longs, long[] targets) {
+        long[] diffs = new long[longs.length];
         int i = 0;
-        for (int in : ints){
-            int diff = Math.abs(in - targets[i]);
+        for (long in : longs){
+            long diff = in - targets[i];
+            diff = diff*diff;//^2
             diffs[i] = diff;
             i++;
         }
-        return arithMean(diffs);
+        return (long) Math.sqrt(arithMean(diffs));
     }
 
-    static int arithMean(int... ints){
-        return IntStream.of(ints).sum()/ints.length;
+    static long arithMean(long... longs){
+        return LongStream.of(longs).sum()/longs.length;
     }
 }

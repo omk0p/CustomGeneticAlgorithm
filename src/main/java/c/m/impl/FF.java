@@ -5,12 +5,12 @@ package c.m.impl;
  */
 public interface FF {
 
-    int result(String bits, int[] input, int[] targets);
-    
-    int[] sampleInputs();
-    
-    int[] sampleTargets();
-    
-    int[] outputs();
+    long result(String bits, long[] input, long[] targets);
+
+    long[] sampleInputs();
+
+    long[] sampleTargets();
+
+    long[] outputs();
 }
 

@@ -10,7 +10,7 @@ public class Population
 {
     final static int ELITISM_K = 5;
     final static int POP_SIZE = 200 + ELITISM_K;  // population size
-    final static int MAX_ITER = 2000;             // max number of iterations
+    final static int MAX_ITER = 10000;             // max number of iterations
     final static double MUTATION_RATE = 0.05;     // probability of mutation
     final static double CROSSOVER_RATE = 0.7;     // probability of crossover
     final static boolean MINIMIZATION = true;     // minimization or maximization
@@ -26,7 +26,7 @@ public class Population
         
         // init population
         for (int i = 0; i < POP_SIZE; i++) {
-            m_population[i] = new Individual(ff);
+            m_population[i] = new Individual(new LinearFF());
             m_population[i].randGenes();
         }
 
@@ -90,8 +90,8 @@ public class Population
 
     public static Individual[] crossover(Individual indiv1,Individual indiv2) {
         Individual[] newIndiv = new Individual[2];
-        newIndiv[0] = new Individual(ff);
-        newIndiv[1] = new Individual(ff);
+        newIndiv[0] = new Individual(new LinearFF());
+        newIndiv[1] = new Individual(new LinearFF());
 
         int randPoint = m_rand.nextInt(Individual.SIZE);
         int i;
@@ -156,12 +156,22 @@ public class Population
             pop.setPopulation(newPop);
 
             // reevaluate current population
+            if (iter == MAX_ITER-1){
+                System.out.println("breakpoint");
+            }
             pop.evaluate();
-            System.out.print("Total Fitness = " + pop.totalFitness);
+            System.out.print(iter + " ");
+            //System.out.print("Total Fitness = " + pop.totalFitness);
             Individual bestIndividual = pop.findBestIndividual();
-            System.out.println(" ; Best Fitness = " +
-                bestIndividual.getFitnessValue());
+            System.out.print(" ; Best Fitness = " +
+                    bestIndividual.getFitnessValue() + "; ");
             Funcs.print(bestIndividual.getFf().outputs());
+            Funcs.print(bestIndividual.getFf().sampleTargets());
+            System.out.println();
+            if (bestIndividual.getFitnessValue() == 0){
+                break;
+            }
+
         }
 
         // best indiv
