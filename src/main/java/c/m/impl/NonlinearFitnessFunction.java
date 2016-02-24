@@ -4,15 +4,15 @@ package c.m.impl;
 /**
  * Created by Pavlo on 17.11.2015.
  */
-public class LinearFF implements FitnessFunction{
+public class NonlinearFitnessFunction implements FitnessFunction{
 
     public long[] sampleInputs(){
-      long[] r = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+      long[] r = {1, 2, 3, 4, 5};
       return r;
     }
     
     public long[] sampleTargets(){
-      long[] r = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
+      long[] r = {5, 10, 15, 20, 25};
       return r;
     }
   

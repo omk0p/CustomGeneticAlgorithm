@@ -7,6 +7,7 @@ import c.m.impl.Utils;
 
 public class Individual
 {
+	//bits (genom)
     public static final int SIZE = 10;
     private int[] genes = new int[SIZE];
     private int fitnessValue;

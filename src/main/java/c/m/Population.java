@@ -1,9 +1,10 @@
 package c.m;
 
+import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 import c.m.impl.FitnessFunction;
-import c.m.impl.Utils;
 import c.m.impl.LinearFF;
 
 public class Population
@@ -107,16 +108,21 @@ public class Population
         return newIndiv;
     }
 
+    static StringBuilder stringBuilder = new StringBuilder();
+    
+    public static String run(){
 
-    public static void main(String[] args) {
+    	stringBuilder.setLength(0);
+    	long stime = System.currentTimeMillis();
+    	
         Population pop = new Population();
         Individual[] newPop = new Individual[POP_SIZE];
         Individual[] indiv = new Individual[2];
 
-        // current population
-        System.out.print("Total Fitness = " + pop.totalFitness);
+        // current population TODO see this for init sysout
+        /*System.out.print("Total Fitness = " + pop.totalFitness);
         System.out.println(" ; Best Fitness = " + 
-            pop.findBestIndividual().getFitnessValue());
+        pop.findBestIndividual().getFitnessValue());*/
 
         // main loop
         int count;
@@ -155,20 +161,22 @@ public class Population
             }
             pop.setPopulation(newPop);
 
-            // reevaluate current population
+            //if reached max iter - return empty string 
             if (iter == MAX_ITER-1){
-                System.out.println("breakpoint");
+                return "";
             }
+            
+            // reevaluate current population
             pop.evaluate();
-            System.out.print(iter + " ");
-            //System.out.print("Total Fitness = " + pop.totalFitness);
             Individual bestIndividual = pop.findBestIndividual();
-            System.out.print(" ; Best Fitness = " +
-                    bestIndividual.getFitnessValue() + "; ");
-            Utils.print(bestIndividual.getFf().outputs());
-            Utils.print(bestIndividual.getFf().sampleTargets());
-            System.out.println();
+            
+            System.out.println(iter + ";" + bestIndividual.getFitnessValue() + ";" + Arrays.toString(bestIndividual.getFf().outputs()) + ";" + 
+        			Arrays.toString(bestIndividual.getFf().sampleTargets()));
+            
             if (bestIndividual.getFitnessValue() == 0){
+            	stringBuilder.append(iter + ";" + bestIndividual.getFitnessValue() + ";" +
+            			Arrays.toString(bestIndividual.getFf().outputs()) + ";" + 
+            			Arrays.toString(bestIndividual.getFf().sampleTargets()));
                 break;
             }
 
@@ -176,5 +184,35 @@ public class Population
 
         // best indiv
         Individual bestIndiv = pop.findBestIndividual();
+        long elapsedTime = System.currentTimeMillis() - stime;
+        stringBuilder.append(";" + elapsedTime);
+        
+        return stringBuilder.toString();
+    }
+    
+    public static void main(String[] args) {
+    	//avg time and avg iteration
+    	System.out.println("Iteration; Fitness; Output array; Target array; Elapsed time(ms.);");
+    	int iter = 1;
+    	long timeSum = 0, iterSum = 0, notReachedCount = 0;
+    	for (int i = 0; i < iter; i++) {
+    		String result = run();
+    		System.out.println(result);
+			String[] resultArray = result.split(";");
+    		if (resultArray[0].equals("")) {
+    			notReachedCount++;
+    		}else {
+    			iterSum += Long.parseLong(resultArray[0]);
+    			timeSum += Long.parseLong(resultArray[4]);
+    		}
+		}
+    	if (notReachedCount == iter) {
+    		System.out.println("Nothing reached");
+    		return;
+    	}
+    	System.out.println("Avg. time: " + (timeSum/(iter - notReachedCount)));
+    	System.out.println("Avg. iteration: " + (iterSum/(iter - notReachedCount)));
+    	System.out.println("Not reached count " + notReachedCount);
     }
 }
+
