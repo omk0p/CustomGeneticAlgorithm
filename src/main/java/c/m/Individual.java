@@ -2,25 +2,25 @@ package c.m;
 
 import java.util.Random;
 
-import c.m.impl.FF;
-import c.m.impl.Funcs;
+import c.m.impl.FitnessFunction;
+import c.m.impl.Utils;
 
 public class Individual
 {
     public static final int SIZE = 10;
     private int[] genes = new int[SIZE];
     private int fitnessValue;
-    private FF ff;
+    private FitnessFunction ff;
 
-    public Individual(FF ff) {
+    public Individual(FitnessFunction ff) {
       this.ff = ff;
     }
 
-    public FF getFf() {
+    public FitnessFunction getFf() {
       return ff;
     }
 
-    public void setFf(FF ff) {
+    public void setFf(FitnessFunction ff) {
       this.ff = ff;
     }
 
@@ -58,7 +58,7 @@ public class Individual
         /*for(int i=0; i<SIZE; ++i) {
             fitness += this.getGene(i);
         }*/
-        fitness = (int) ff.result(Funcs.split(genes), ff.sampleInputs(), ff.sampleTargets());//TODO lossy conversion
+        fitness = (int) ff.result(Utils.split(genes), ff.sampleInputs(), ff.sampleTargets());//TODO lossy conversion
         this.setFitnessValue(fitness);
 
         return fitness;

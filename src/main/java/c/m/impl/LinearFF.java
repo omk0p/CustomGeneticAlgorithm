@@ -4,7 +4,7 @@ package c.m.impl;
 /**
  * Created by Pavlo on 17.11.2015.
  */
-public class LinearFF implements FF{
+public class LinearFF implements FitnessFunction{
 
     public long[] sampleInputs(){
       long[] r = {1, 2, 3, 4, 5};
@@ -27,7 +27,7 @@ public class LinearFF implements FF{
             output[i] = in*k;
             i++;
         }
-        return Funcs.mse(output,targets);
+        return Utils.mse(output,targets);
     }
 
     @Override

@@ -2,8 +2,8 @@ package c.m;
 
 import java.util.Random;
 
-import c.m.impl.FF;
-import c.m.impl.Funcs;
+import c.m.impl.FitnessFunction;
+import c.m.impl.Utils;
 import c.m.impl.LinearFF;
 
 public class Population
@@ -15,7 +15,7 @@ public class Population
     final static double CROSSOVER_RATE = 0.7;     // probability of crossover
     final static boolean MINIMIZATION = true;     // minimization or maximization
     
-    final static FF ff = new LinearFF();
+    final static FitnessFunction ff = new LinearFF();
 
     private static Random m_rand = new Random();  // random-number generator
     private Individual[] m_population;
@@ -165,8 +165,8 @@ public class Population
             Individual bestIndividual = pop.findBestIndividual();
             System.out.print(" ; Best Fitness = " +
                     bestIndividual.getFitnessValue() + "; ");
-            Funcs.print(bestIndividual.getFf().outputs());
-            Funcs.print(bestIndividual.getFf().sampleTargets());
+            Utils.print(bestIndividual.getFf().outputs());
+            Utils.print(bestIndividual.getFf().sampleTargets());
             System.out.println();
             if (bestIndividual.getFitnessValue() == 0){
                 break;

@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * Created by Pavlo on 17.11.2015.
  */
-public class LinearFFTest extends LinearFF implements FF{
+public class LinearFFTest extends LinearFF implements FitnessFunction{
 
     @Test
     public void mseTest(){
