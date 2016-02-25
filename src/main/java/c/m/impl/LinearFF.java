@@ -1,9 +1,6 @@
 package c.m.impl;
 
 
-/**
- * Created by Pavlo on 17.11.2015.
- */
 public class LinearFF implements FitnessFunction{
 
     public long[] sampleInputs(){
@@ -21,24 +18,23 @@ public class LinearFF implements FitnessFunction{
     @Override
     public long result(String bits, long[] inputs, long[] targets) {
         this.k = Integer.parseInt(bits, 2);
-        long[] output = new long[inputs.length];
-        int i = 0;
-        for (long in : inputs){
-            output[i] = in*k;
-            i++;
-        }
+        long[] output = outputsInner(inputs);
         return Utils.mse(output,targets);
     }
 
+	public long[] outputsInner(long[] inputs) {
+		long[] output = new long[inputs.length];
+		int i = 0;
+		for (long in : inputs) {
+			output[i] = in * k;
+			i++;
+		}
+		return output;
+	}
+    
     @Override
     public long[] outputs() {
-      long[] output = new long[sampleInputs().length];
-      int i = 0;
-      for (long in : sampleInputs()){
-        output[i] = in*k;
-        i++;
-      }
-      return output;
+      return outputsInner(sampleInputs());
     }
 
 

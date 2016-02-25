@@ -2,7 +2,6 @@ package c.m;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 import c.m.impl.FitnessFunction;
 import c.m.impl.LinearFF;
@@ -16,18 +15,22 @@ public class Population
     final static double CROSSOVER_RATE = 0.7;     // probability of crossover
     final static boolean MINIMIZATION = true;     // minimization or maximization
     
-    final static FitnessFunction ff = new LinearFF();
+    final static FitnessFunction ff = fitnessFunctionFactoryMethod();
 
     private static Random m_rand = new Random();  // random-number generator
     private Individual[] m_population;
     private double totalFitness;
 
+    private static FitnessFunction fitnessFunctionFactoryMethod() {
+    	return new LinearFF();
+    }
+    
     public Population() {
         m_population = new Individual[POP_SIZE];
         
         // init population
         for (int i = 0; i < POP_SIZE; i++) {
-            m_population[i] = new Individual(new LinearFF());
+            m_population[i] = new Individual(fitnessFunctionFactoryMethod());
             m_population[i].randGenes();
         }
 
@@ -91,8 +94,8 @@ public class Population
 
     public static Individual[] crossover(Individual indiv1,Individual indiv2) {
         Individual[] newIndiv = new Individual[2];
-        newIndiv[0] = new Individual(new LinearFF());
-        newIndiv[1] = new Individual(new LinearFF());
+        newIndiv[0] = new Individual(fitnessFunctionFactoryMethod());
+        newIndiv[1] = new Individual(fitnessFunctionFactoryMethod());
 
         int randPoint = m_rand.nextInt(Individual.SIZE);
         int i;
