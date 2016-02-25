@@ -1,21 +1,21 @@
 package c.m.impl;
 
-import org.junit.Ignore;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class OtherTests {
 	@Test
-	public void binaryStringToFloatTest() {
-		int intBits = Integer.parseInt("00111110001000000000000000000000", 2);
-		float myFloat = Float.intBitsToFloat(intBits);
-		System.out.println(myFloat);
+	public void binaryStringToDoubleTest() {
+		Assert.assertTrue(new Double(0).equals(DoubleUtils.binaryStringToDouble("0")));
+		Assert.assertTrue(new Double(1).equals(DoubleUtils.binaryStringToDouble("11111111110000000000000000000000000000000000000000000000000000")));
+		Assert.assertTrue(new Double(2).equals(DoubleUtils.binaryStringToDouble("100000000000000000000000000000000000000000000000000000000000000")));
 	}
 	
 	@Test
-	public void floatToBinaryStringTest() {
-		int intBits = Float.floatToIntBits(-0.15625f); 
-		String binary = Integer.toBinaryString(intBits);
-		System.out.println(binary);
+	public void doubleToBinaryStringTest() {
+		Assert.assertTrue("0".equals(DoubleUtils.doubleToBinaryString(0)));
+		Assert.assertTrue("11111111110000000000000000000000000000000000000000000000000000".equals(DoubleUtils.doubleToBinaryString(1)));
+		Assert.assertTrue("100000000000000000000000000000000000000000000000000000000000000".equals(DoubleUtils.doubleToBinaryString(2)));
 	}
 	
 

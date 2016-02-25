@@ -10,10 +10,10 @@ public class UtilsTest extends Utils{
 
     @Test
     public void mseTest2(){
-        long[] i1 = {0, 0, 14, 14};
-        long[] i2 = {0, 6, 8, 14};
-        long[] i3 = {6, 6, 8, 8};
-        long[] targets = {7,7,7,7};
+    	double[] i1 = {0, 0, 14, 14};
+    	double[] i2 = {0, 6, 8, 14};
+    	double[] i3 = {6, 6, 8, 8};
+        double[] targets = {7,7,7,7};
         int[] anwers = {7,5,1};
 
         Assert.assertEquals(anwers[0], mse(i1, targets));
@@ -35,15 +35,15 @@ public class UtilsTest extends Utils{
 
     @Test
     public void arithMeanTest(){
-        long[] i1 = {0, 0, 14, 14};
-        long[] i2 = {0, 6, 8, 14};
-        long[] i3 = {6, 6, 8, 8};
+    	double[] i1 = {0, 0, 14, 14};
+    	double[] i2 = {0, 6, 8, 14};
+    	double[] i3 = {6, 6, 8, 8};
 
         int[] a1 = {7,7,7};
 
-        Assert.assertEquals(a1[0], arithMean(i1));
-        Assert.assertEquals(a1[1], arithMean(i2));
-        Assert.assertEquals(a1[2], arithMean(i3));
+        Assert.assertEquals(a1[0], arithMean(i1), 0.1);
+        Assert.assertEquals(a1[1], arithMean(i2), 0.1);
+        Assert.assertEquals(a1[2], arithMean(i3), 0.1);
     }
 
 }

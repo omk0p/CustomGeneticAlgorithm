@@ -8,22 +8,22 @@ public class LinearFF implements FitnessFunction{
       return r;
     }
     
-    public long[] sampleTargets(){
-      long[] r = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
+    public double[] sampleTargets(){
+      double[] r = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
       return r;
     }
   
     long k;
     
     @Override
-    public long result(String bits, long[] inputs, long[] targets) {
+    public long result(String bits, long[] inputs, double[] targets) {
         this.k = Integer.parseInt(bits, 2);
-        long[] output = outputsInner(inputs);
+        double[] output = outputsInner(inputs);
         return Utils.mse(output,targets);
     }
 
-	public long[] outputsInner(long[] inputs) {
-		long[] output = new long[inputs.length];
+	public double[] outputsInner(long[] inputs) {
+		double[] output = new double[inputs.length];
 		int i = 0;
 		for (long in : inputs) {
 			output[i] = in * k;
@@ -33,7 +33,7 @@ public class LinearFF implements FitnessFunction{
 	}
     
     @Override
-    public long[] outputs() {
+    public double[] outputs() {
       return outputsInner(sampleInputs());
     }
 

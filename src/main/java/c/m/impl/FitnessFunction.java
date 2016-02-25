@@ -5,12 +5,12 @@ package c.m.impl;
  */
 public interface FitnessFunction {
 
-    long result(String bits, long[] input, long[] targets);
+    long result(String bits, long[] input, double[] targets);
 
     long[] sampleInputs();
 
-    long[] sampleTargets();
+    double[] sampleTargets();
 
-    long[] outputs();
+    double[] outputs();
 }
 

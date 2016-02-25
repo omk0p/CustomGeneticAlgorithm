@@ -1,15 +1,15 @@
 package c.m.impl;
 
-public class FloatUtils {
+import java.math.BigInteger;
+
+public class DoubleUtils {
 	
-	public float binaryStringToFloat(String str) {
-		int intBits = Integer.parseInt(str, 2);
-		return Float.intBitsToFloat(intBits);
+	public static double binaryStringToDouble(String str) {
+		return Double.longBitsToDouble(new BigInteger(str, 2).longValue());
 	}
 	
 	
-	public String floatToBinaryString(float f) {
-		int intBits = Float.floatToIntBits(f); 
-		return Integer.toBinaryString(intBits);
+	public static String doubleToBinaryString(double d) {
+		return Long.toBinaryString(Double.doubleToRawLongBits(d));
 	}
 }

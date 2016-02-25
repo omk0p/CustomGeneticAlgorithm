@@ -2,8 +2,7 @@ package c.m.impl;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
+import java.util.stream.DoubleStream;
 
 /**
  * Created by Pavlo on 17.11.2015.
@@ -48,11 +47,11 @@ public class Utils {
         return arithMean(diffs);
     }*/
 
-    public static long mse(long[] longs, long[] targets) {
-        long[] diffs = new long[longs.length];
+    public static long mse(double[] longs, double[] targets) {
+        double[] diffs = new double[longs.length];
         int i = 0;
-        for (long in : longs){
-            long diff = in - targets[i];
+        for (double in : longs){
+        	double diff = in - targets[i];
             diff = diff*diff;//^2
             diffs[i] = diff;
             i++;
@@ -60,7 +59,7 @@ public class Utils {
         return (long) Math.sqrt(arithMean(diffs));
     }
 
-    static long arithMean(long... longs){
-        return LongStream.of(longs).sum()/longs.length;
+    static double arithMean(double... doubles){
+        return DoubleStream.of(doubles).sum()/doubles.length;
     }
 }
