@@ -2,66 +2,71 @@ package c.m;
 
 import java.util.Random;
 
-import c.m.impl.FitnessFunction;
-import c.m.impl.Utils;
+import c.m.ff.FitnessFunction;
+import c.m.utils.Utils;
 
-public class Individual
-{
-	//bits (genom)
-    public static final int SIZE = 10;
-    private int[] genes = new int[SIZE];
-    private int fitnessValue;
-    private FitnessFunction ff;
+public class Individual {
+	// bits (genom)
+	public static int SIZE = 341;
+	private int[] genes = new int[SIZE];
+	private int fitnessValue;
+	private FitnessFunction ff;
+	
+	public static void setSize(int size) {
+		SIZE = size;
+	}
+	
+	public Individual(FitnessFunction ff) {
+		this.ff = ff;
+	}
 
-    public Individual(FitnessFunction ff) {
-      this.ff = ff;
-    }
+	public FitnessFunction getFf() {
+		return ff;
+	}
 
-    public FitnessFunction getFf() {
-      return ff;
-    }
+	public void setFf(FitnessFunction ff) {
+		this.ff = ff;
+	}
 
-    public void setFf(FitnessFunction ff) {
-      this.ff = ff;
-    }
+	public int getFitnessValue() {
+		return fitnessValue;
+	}
 
-    public int getFitnessValue() {
-        return fitnessValue;
-    }
+	public void setFitnessValue(int fitnessValue) {
+		this.fitnessValue = fitnessValue;
+	}
 
-    public void setFitnessValue(int fitnessValue) {
-        this.fitnessValue = fitnessValue;
-    }
+	public int getGene(int index) {
+		return genes[index];
+	}
 
-    public int getGene(int index) {
-        return genes[index];
-    }
+	public void setGene(int index, int gene) {
+		this.genes[index] = gene;
+	}
 
-    public void setGene(int index, int gene) {
-        this.genes[index] = gene;
-    }
+	public void randGenes() {
+		Random rand = new Random();
+		for (int i = 0; i < SIZE; ++i) {
+			this.setGene(i, rand.nextInt(2));
+		}
+	}
 
-    public void randGenes() {
-        Random rand = new Random();
-        for(int i=0; i<SIZE; ++i) {
-            this.setGene(i, rand.nextInt(2));
-        }
-    }
+	public void mutate() {
+		Random rand = new Random();
+		int index = rand.nextInt(SIZE);
+		this.setGene(index, 1 - this.getGene(index)); // flip
+	}
 
-    public void mutate() {
-        Random rand = new Random();
-        int index = rand.nextInt(SIZE);
-        this.setGene(index, 1-this.getGene(index));    // flip
-    }
+	public int evaluate() {
+		int fitness = 0;
+		/*
+		 * for(int i=0; i<SIZE; ++i) { fitness += this.getGene(i); }
+		 */
+		fitness = (int) ff.evaluate(Utils.split(genes), ff.input(), ff.target());// TODO
+																								// lossy
+																								// conversion
+		this.setFitnessValue(fitness);
 
-    public int evaluate() {
-        int fitness = 0;
-        /*for(int i=0; i<SIZE; ++i) {
-            fitness += this.getGene(i);
-        }*/
-        fitness = (int) ff.result(Utils.split(genes), ff.sampleInputs(), ff.sampleTargets());//TODO lossy conversion
-        this.setFitnessValue(fitness);
-
-        return fitness;
-    }
+		return fitness;
+	}
 }
