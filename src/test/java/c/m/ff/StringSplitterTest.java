@@ -6,6 +6,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import c.m.utils.StringSplitter;
+
 public class StringSplitterTest {
 
 	String evenSampleBits = "10010100101110101010";

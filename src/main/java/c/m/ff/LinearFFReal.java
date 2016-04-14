@@ -2,6 +2,7 @@ package c.m.ff;
 
 import c.m.utils.Utils;
 import c.m.utils.Matrix;
+import c.m.utils.StringSplitter;
 
 public class LinearFFReal implements FitnessFunction {
 

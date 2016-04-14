@@ -1,4 +1,4 @@
-package c.m.ff;
+package c.m.utils;
 
 public class StringSplitter {
 	public static double[] signIntSplit(String bits, int parts) {
