@@ -5,13 +5,13 @@ package c.m.ff;
  */
 public interface FitnessFunction {
 
-	long evaluate(String bits, long[] input, double[] target);
+	long evaluate(String bits, long[][] input, double[][] target);
 
-	long[] input();
+	long[][] input();
 
-	double[] target();
+	double[][] target();
 
-	double[] output();
+	double[][] output();
 
 	int getGenomeSize();
 }

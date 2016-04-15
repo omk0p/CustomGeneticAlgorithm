@@ -60,6 +60,13 @@ public class Utils {
 		return x[0].length;
 	}
 
+	public static int size(long[][] x) {
+		if (x.length <= 0) {
+			throw new IllegalArgumentException();
+		}
+		return x[0].length;
+	}
+
 	public static double[][] tansig(double[][] x) {
 		if (x.length > 0) {
 			double[][] r = new double[x.length][x[0].length];
@@ -118,6 +125,16 @@ public class Utils {
 		System.out.print(Arrays.toString(arr) + " ");
 	}
 
+	public static String arr2DOneLineString(double[][] arr) {
+		StringBuilder result = new StringBuilder();
+		result.append('[');
+		for (double[] a : arr) {
+			result.append(Arrays.toString(a) + ",");
+		}
+		result.append(']');
+		return result.toString();
+	}
+
 	public static void print(String n, double[][] a) {
 		System.out.println(n + ":");
 		for (double[] arr : a) {
@@ -133,16 +150,20 @@ public class Utils {
 		return result;
 	}
 
-	public static long mse(double[] longs, double[] targets) {
-		double[] diffs = new double[longs.length];
-		int i = 0;
-		for (double in : longs) {
-			double diff = in - targets[i];
-			diff = diff * diff;// ^2
-			diffs[i] = diff;
-			i++;
+	public static long mse(double[][] longs, double[][] targets) {
+		double[] mses = new double[longs.length];
+		for (int i = 0; i < longs.length; i++) {
+			double[] diffs = new double[size(longs)];
+			int j = 0;
+			for (double in : longs[i]) {
+				double diff = in - targets[i][j];
+				diff = diff * diff;// ^2
+				diffs[j] = diff;
+				j++;
+			}
+			mses[i] = (long) Math.sqrt(arithMean(diffs));
 		}
-		return (long) Math.sqrt(arithMean(diffs));
+		return (long) arithMean(mses);
 	}
 
 	public static double arithMean(double... doubles) {

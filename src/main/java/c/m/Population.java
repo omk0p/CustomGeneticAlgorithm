@@ -1,11 +1,10 @@
 package c.m;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import c.m.ff.FitnessFunction;
-import c.m.ff.LinearFF;
 import c.m.ff.LinearFFReal;
+import c.m.utils.Utils;
 
 public class Population {
 	final static int ELITISM_K = 5;
@@ -179,13 +178,13 @@ public class Population {
 			Individual bestIndividual = pop.findBestIndividual();
 
 			System.out.println(iter + ";" + bestIndividual.getFitnessValue() + ";"
-					+ Arrays.toString(bestIndividual.getFf().output()) + ";"
-					+ Arrays.toString(bestIndividual.getFf().target()));
+					+ Utils.arr2DOneLineString(bestIndividual.getFf().output()) + ";"
+					+ Utils.arr2DOneLineString(bestIndividual.getFf().target()));
 
 			if (bestIndividual.getFitnessValue() == 0) {
 				stringBuilder.append(iter + ";" + bestIndividual.getFitnessValue() + ";"
-						+ Arrays.toString(bestIndividual.getFf().output()) + ";"
-						+ Arrays.toString(bestIndividual.getFf().target()));
+						+ Utils.arr2DOneLineString(bestIndividual.getFf().output()) + ";"
+						+ Utils.arr2DOneLineString(bestIndividual.getFf().target()));
 				break;
 			}
 

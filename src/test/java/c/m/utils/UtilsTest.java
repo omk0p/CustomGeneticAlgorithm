@@ -10,10 +10,10 @@ public class UtilsTest extends Utils{
 
     @Test
     public void mseTest2(){
-    	double[] i1 = {0, 0, 14, 14};
-    	double[] i2 = {0, 6, 8, 14};
-    	double[] i3 = {6, 6, 8, 8};
-        double[] targets = {7,7,7,7};
+    	double[][] i1 = {{0, 0, 14, 14}};
+    	double[][] i2 = {{0, 6, 8, 14}};
+    	double[][] i3 = {{6, 6, 8, 8}};
+        double[][] targets = {{7,7,7,7}};
         int[] anwers = {7,5,1};
 
         Assert.assertEquals(anwers[0], mse(i1, targets));
