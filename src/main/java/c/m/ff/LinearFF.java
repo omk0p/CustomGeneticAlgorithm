@@ -4,7 +4,7 @@ import c.m.utils.Utils;
 
 public class LinearFF implements FitnessFunction {
 
-	private static final int GENOME_SIZE = 13;
+	private static final int GENOME_SIZE = 11;
 	long k;
 	
 	public long[] input() {
@@ -13,7 +13,7 @@ public class LinearFF implements FitnessFunction {
 	}
 
 	public double[] target() {
-		double[] r = { 4650, 9300, 13950, 18600, 23250, 27900, 32550, 37200, 41850, 46500 };
+		double[] r = { 465, 930, 1395, 1860, 2325, 2790, 3255, 3720, 4185, 4650 };
 		return r;
 	}
 
