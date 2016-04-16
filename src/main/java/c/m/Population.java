@@ -3,7 +3,7 @@ package c.m;
 import java.util.Random;
 
 import c.m.ff.FitnessFunction;
-import c.m.ff.LinearFFReal;
+import c.m.ff.NonLinearFF;
 import c.m.utils.Utils;
 
 public class Population {
@@ -21,7 +21,7 @@ public class Population {
 	private double totalFitness;
 
 	private static FitnessFunction createFitnessFunction() {
-		FitnessFunction ff = new LinearFFReal();
+		FitnessFunction ff = new NonLinearFF();
 		
 		Individual.setSize(ff.getGenomeSize());
 		return ff;

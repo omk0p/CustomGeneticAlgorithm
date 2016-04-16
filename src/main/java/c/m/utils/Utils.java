@@ -1,6 +1,7 @@
 package c.m.utils;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.stream.DoubleStream;
 
 public class Utils {
@@ -129,7 +130,11 @@ public class Utils {
 		StringBuilder result = new StringBuilder();
 		result.append('[');
 		for (double[] a : arr) {
-			result.append(Arrays.toString(a) + ",");
+			result.append('[');
+			for (double d : a) {
+				result.append(String.format(Locale.US, "%.2f", d) + ",");
+			}
+			result.append(']');
 		}
 		result.append(']');
 		return result.toString();
@@ -150,12 +155,12 @@ public class Utils {
 		return result;
 	}
 
-	public static long mse(double[][] longs, double[][] targets) {
-		double[] mses = new double[longs.length];
-		for (int i = 0; i < longs.length; i++) {
-			double[] diffs = new double[size(longs)];
+	public static long mse(double[][] output, double[][] targets) {
+		double[] mses = new double[output.length];
+		for (int i = 0; i < output.length; i++) {
+			double[] diffs = new double[size(output)];
 			int j = 0;
-			for (double in : longs[i]) {
+			for (double in : output[i]) {
 				double diff = in - targets[i][j];
 				diff = diff * diff;// ^2
 				diffs[j] = diff;
