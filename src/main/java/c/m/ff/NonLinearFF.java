@@ -10,17 +10,32 @@ public class NonLinearFF implements FitnessFunction {
 	private static final int GENOME_SIZE = GENOME_PARTS * (PART_BITS + 1);// sign
 																			// bit
 	double[] gNums;// genomeNumbers: weights,biases,etc.
+	double[][] input = {
+			{ -1000, -900, -800, -700, -600, -500, -400, -300, -200, -100, 0, 100, 200, 300, 400, 500, 600, 700, 800,
+					900, 1000 },
+			{ -2000, -1900, -1800, -1700, -1600, -1500, -1400, -1300, -1200, -1100, -1000, -900, -800, -700, -600, -500,
+					-400, -300, -200, -100, 0 },
+			{ 0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800,
+					1900, 2000 } };
+
+	double[][] target = {
+			{ -1000, -1000, -1000, -1000, -1000, -1000, -900, -800, -700, -600, -500, -400, -300, -200, -100, 0, 100,
+					200, 300, 400, 500 },
+			{ -500, -400, -300, -200, -100, 00, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1000, 1000, 1000,
+					1000, 1000 } };
 
 	@Override
-	public long[][] input() {
-		long[][] result = { { -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
-				{ -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0 },
-				{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 } };
-		return result;
+	public double[][] input() {
+		return input;
 	}
 
 	@Override
-	public long evaluate(String bits, long[][] input, double[][] target) {
+	public double[][] target() {
+		return target;
+	}
+
+	@Override
+	public long evaluate(String bits, double[][] target) {
 		gNums = StringSplitter.signIntSplit(bits, GENOME_PARTS);
 		for (int i = 0; i < gNums.length; i++) {
 			gNums[i] = gNums[i] / 100;
@@ -31,19 +46,9 @@ public class NonLinearFF implements FitnessFunction {
 	}
 
 	@Override
-	public double[][] target() {
-		double[][] t = { { -10, -10, -10, -10, -10, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5 },
-				{ -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 10, 10 } };
-		return t;
-	}
-
-	@Override
 	public double[][] output() {
-		double[][] x = { { -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
-				{ -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0 },
-				{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 } };
-		double[][] t = { { -10, -10, -10, -10, -10, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5 },
-				{ -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 10, 10 } };
+		double[][] x = input();
+		double[][] t = target();
 
 		double[][] b1 = { { gNums[0] }, { gNums[1] }, { gNums[2] }, { gNums[3] }, { gNums[4] }, { gNums[5] },
 				{ gNums[6] }, { gNums[7] }, { gNums[8] }, { gNums[9] } };
@@ -78,9 +83,6 @@ public class NonLinearFF implements FitnessFunction {
 		return y;
 	}
 
-	/*
-	 * public static void main(String[] args) { new NonLinearFF().output(); }
-	 */
 	@Override
 	public int getGenomeSize() {
 		return GENOME_SIZE;

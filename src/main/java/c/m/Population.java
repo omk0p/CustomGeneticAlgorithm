@@ -9,7 +9,7 @@ import c.m.utils.Utils;
 public class Population {
 	final static int ELITISM_K = 5;
 	final static int POP_SIZE = 200 + ELITISM_K; // population size
-	final static int MAX_ITER = 20000; // max number of iterations
+	final static int MAX_ITER = 10000; // max number of iterations
 	final static double MUTATION_RATE = 0.05; // probability of mutation
 	final static double CROSSOVER_RATE = 0.7; // probability of crossover
 	final static boolean MINIMIZATION = true; // minimization or maximization

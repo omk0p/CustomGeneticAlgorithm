@@ -175,4 +175,13 @@ public class Utils {
 		return DoubleStream.of(doubles).sum() / doubles.length;
 	}
 
+	public static double[][] copyFromLongArray(long[][] source) {
+		double[][] dest = new double[source.length][size(source)];
+		for (int i = 0; i < source.length; i++) {
+			for (int j = 0; j < size(source); j++) {
+				dest[i][j] = source[i][j];
+			}
+		}
+		return dest;
+	}
 }

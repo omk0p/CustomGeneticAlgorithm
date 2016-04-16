@@ -5,9 +5,9 @@ package c.m.ff;
  */
 public interface FitnessFunction {
 
-	long evaluate(String bits, long[][] input, double[][] target);
+	long evaluate(String bits, double[][] target);
 
-	long[][] input();
+	double[][] input();
 
 	double[][] target();
 

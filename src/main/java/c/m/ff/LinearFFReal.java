@@ -10,8 +10,8 @@ public class LinearFFReal implements FitnessFunction {
 	int genomeParts = 31;
 	double[] gNums;// genomeNumbers: weights,biases,etc.
 
-	public long[][] input() {
-		long[][] r = {{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }};
+	public double[][] input() {
+		double[][] r = {{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }};
 		return r;
 	}
 
@@ -21,13 +21,13 @@ public class LinearFFReal implements FitnessFunction {
 	}
 
 	@Override
-	public long evaluate(String bits, long[][] input, double[][] targets) {
+	public long evaluate(String bits, double[][] targets) {
 		gNums = StringSplitter.signIntSplit(bits, genomeParts);
 		for (int i = 0; i < gNums.length; i++) {
 			gNums[i] = gNums[i] / 1000;
 		}
 
-		double[][] output = outputsInner(input);
+		double[][] output = outputsInner(input());
 		return Utils.mse(output, targets);
 	}
 
@@ -36,7 +36,7 @@ public class LinearFFReal implements FitnessFunction {
 		return outputsInner(input());
 	}
 
-	public double[][] outputsInner(long[][] inputs) {
+	public double[][] outputsInner(double[][] inputs) {
 
 		double[][] x = { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } };
 		double[][] t = { { 465, 930, 1395, 1860, 2325, 2790, 3255, 3720, 4185, 4650 } };
