@@ -10,7 +10,7 @@ public class NonLinearFF implements FitnessFunction {
 	private static final int GENOME_SIZE = GENOME_PARTS * (PART_BITS + 1);// sign
 																			// bit
 	double[] gNums;// genomeNumbers: weights,biases,etc.
-	double[][] input = {
+	/*double[][] input = {
 			{ -1000, -900, -800, -700, -600, -500, -400, -300, -200, -100, 0, 100, 200, 300, 400, 500, 600, 700, 800,
 					900, 1000 },
 			{ -2000, -1900, -1800, -1700, -1600, -1500, -1400, -1300, -1200, -1100, -1000, -900, -800, -700, -600, -500,
@@ -22,7 +22,21 @@ public class NonLinearFF implements FitnessFunction {
 			{ -1000, -1000, -1000, -1000, -1000, -1000, -900, -800, -700, -600, -500, -400, -300, -200, -100, 0, 100,
 					200, 300, 400, 500 },
 			{ -500, -400, -300, -200, -100, 00, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1000, 1000, 1000,
-					1000, 1000 } };
+					1000, 1000 } };*/
+	
+	double[][] input = {
+			{ -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8,
+					9, 10 },
+			{ -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5,
+					-4, -3, -2, -1, 0 },
+			{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+					19, 20 } };
+
+	double[][] target = {
+			{ -10, -10, -10, -10, -10, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1,
+					2, 3, 4, 5 },
+			{ -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10,
+					10, 10 } };
 
 	@Override
 	public double[][] input() {
@@ -35,7 +49,7 @@ public class NonLinearFF implements FitnessFunction {
 	}
 
 	@Override
-	public long evaluate(String bits, double[][] target) {
+	public double evaluate(String bits, double[][] target) {
 		gNums = StringSplitter.signIntSplit(bits, GENOME_PARTS);
 		for (int i = 0; i < gNums.length; i++) {
 			gNums[i] = gNums[i] / 100;

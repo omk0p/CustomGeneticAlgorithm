@@ -22,7 +22,7 @@ public class LinearFF implements FitnessFunction {
 	}
 
 	@Override
-	public long evaluate(String bits, double[][] targets) {
+	public double evaluate(String bits, double[][] targets) {
 		char sign = bits.charAt(0);
 		bits = bits.substring(1);
 		this.k = Integer.parseInt(bits, 2);

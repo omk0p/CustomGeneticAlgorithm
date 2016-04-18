@@ -21,7 +21,7 @@ public class LinearFFReal implements FitnessFunction {
 	}
 
 	@Override
-	public long evaluate(String bits, double[][] targets) {
+	public double evaluate(String bits, double[][] targets) {
 		gNums = StringSplitter.signIntSplit(bits, genomeParts);
 		for (int i = 0; i < gNums.length; i++) {
 			gNums[i] = gNums[i] / 1000;

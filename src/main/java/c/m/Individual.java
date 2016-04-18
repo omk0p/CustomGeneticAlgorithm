@@ -9,7 +9,7 @@ public class Individual {
 	// bits (genom)
 	public static int SIZE = 341;
 	private int[] genes = new int[SIZE];
-	private int fitnessValue;
+	private double fitnessValue;
 	private FitnessFunction ff;
 	
 	public static void setSize(int size) {
@@ -28,11 +28,11 @@ public class Individual {
 		this.ff = ff;
 	}
 
-	public int getFitnessValue() {
+	public double getFitnessValue() {
 		return fitnessValue;
 	}
 
-	public void setFitnessValue(int fitnessValue) {
+	public void setFitnessValue(double fitnessValue) {
 		this.fitnessValue = fitnessValue;
 	}
 
@@ -57,12 +57,12 @@ public class Individual {
 		this.setGene(index, 1 - this.getGene(index)); // flip
 	}
 
-	public int evaluate() {
-		int fitness = 0;
+	public double evaluate() {
+		double fitness = 0;
 		/*
 		 * for(int i=0; i<SIZE; ++i) { fitness += this.getGene(i); }
 		 */
-		fitness = (int) ff.evaluate(Utils.split(genes), ff.target());// TODO
+		fitness = ff.evaluate(Utils.split(genes), ff.target());// TODO
 																								// lossy
 																								// conversion
 		this.setFitnessValue(fitness);

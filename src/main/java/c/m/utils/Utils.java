@@ -155,7 +155,7 @@ public class Utils {
 		return result;
 	}
 
-	public static long mse(double[][] output, double[][] targets) {
+	public static double mse(double[][] output, double[][] targets) {
 		double[] mses = new double[output.length];
 		for (int i = 0; i < output.length; i++) {
 			double[] diffs = new double[size(output)];
@@ -166,9 +166,9 @@ public class Utils {
 				diffs[j] = diff;
 				j++;
 			}
-			mses[i] = (long) Math.sqrt(arithMean(diffs));
+			mses[i] = Math.sqrt(arithMean(diffs));
 		}
-		return (long) arithMean(mses);
+		return arithMean(mses);
 	}
 
 	public static double arithMean(double... doubles) {
