@@ -1,5 +1,6 @@
 package c.m.utils;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.stream.DoubleStream;
@@ -183,5 +184,38 @@ public class Utils {
 			}
 		}
 		return dest;
+	}
+	
+	public static int multiply(int a, int b) {
+		return a * b;
+	}
+
+	public static int add(int a, int b) {
+		return a + b;
+	}
+
+	public static int constant(int a) {
+		return a;
+	}
+
+	public static double saturation(int lo, int up, double u) {
+		if (u < lo)
+			return lo;
+		if (u > up)
+			return up;
+		return u;
+	}
+
+	public static int ramp(int initialOutput, int slope, int t) {
+		return slope * t + initialOutput;
+	}
+	
+	public static double binaryStringToDouble(String str) {
+		return Double.longBitsToDouble(new BigInteger(str, 2).longValue());
+	}
+	
+	
+	public static String doubleToBinaryString(double d) {
+		return Long.toBinaryString(Double.doubleToRawLongBits(d));
 	}
 }

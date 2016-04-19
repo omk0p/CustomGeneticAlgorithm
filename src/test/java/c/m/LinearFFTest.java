@@ -1,4 +1,4 @@
-package c.m.utils;
+package c.m;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,13 +1,4 @@
-/*
- * This file is part of JGAP.
- *
- * JGAP offers a dual license model containing the LGPL as well as the MPL.
- *
- * For licensing information please see the file license.txt included with JGAP
- * or have a look at the top of class org.jgap.Chromosome which representatively
- * includes the JGAP license policy applicable for any file delivered with JGAP.
- */
-package c.m.jgap;
+package c.m.system;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
@@ -17,21 +8,27 @@ import org.jgap.InvalidConfigurationException;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.DoubleGene;
 
-public class SimpleExampleReverse {
-	public static void main(String[] args) {
+import c.m.jgap.NonLinearFFReverse;
+
+public class NN1 implements Block, NN {
+
+	IChromosome fittest;
+	NonLinearFFReverse ff = new NonLinearFFReverse();
+
+	@Override
+	public double[][] output(double[][] in) {
+		return ff.output(in);
+	}
+
+	@Override
+	public void learn() {
 		int numEvolutions = 2000;
 		Configuration gaConf = new DefaultConfiguration();
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(false);
 		Genotype genotype = null;
-		int chromeSize;
-		if (args.length > 0) {
-			chromeSize = Integer.parseInt(args[0]);
-		} else {
-			chromeSize = 62;
-		}
+		int chromeSize = 62;
 
-		NonLinearFFReverse ff = new NonLinearFFReverse();
 		try {
 			DoubleGene gene = new DoubleGene(gaConf, -1.0, 1.0);
 
@@ -61,9 +58,11 @@ public class SimpleExampleReverse {
 		}
 		// Print summary.
 		// --------------
-		IChromosome fittest = genotype.getFittestChromosome();
-		ff.evaluate(fittest);
-		System.out.println("Fittest Chromosome has fitness " + fittest.getFitnessValue());
-
+		this.fittest = genotype.getFittestChromosome();
+		/*
+		 * ff.evaluate(fittest); System.out.println(
+		 * "Fittest Chromosome has fitness " + fittest.getFitnessValue());
+		 */
 	}
+
 }

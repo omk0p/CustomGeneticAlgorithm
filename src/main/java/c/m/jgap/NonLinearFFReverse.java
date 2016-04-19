@@ -33,14 +33,14 @@ public class NonLinearFFReverse extends FitnessFunction {
 			gNums[i] = value.doubleValue();
 		}
 
-		double[][] output = output();
+		double[][] output = output(input);
 		double mse = Utils.mse(output, target);
 		// Utils.print("OUT=", output);
 		// System.out.println("MSE=" + mse);
 		return MSE_UPPER_LIMIT - mse;
 	}
 
-	public double[][] output() {
+	public double[][] output(double[][] input) {
 		double[][] x = input;
 		double[][] t = target;
 
