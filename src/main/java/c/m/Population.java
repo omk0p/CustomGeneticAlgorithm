@@ -22,7 +22,7 @@ public class Population {
 
 	private static FitnessFunction createFitnessFunction() {
 		FitnessFunction ff = new NonLinearFF();
-		
+
 		Individual.setSize(ff.getGenomeSize());
 		return ff;
 	}

@@ -141,6 +141,11 @@ public class Utils {
 		return result.toString();
 	}
 
+	public static void print(String n, double a) {
+		System.out.print(n + ": ");
+		System.out.println(a);
+	}
+
 	public static void print(String n, double[][] a) {
 		System.out.println(n + ":");
 		for (double[] arr : a) {
@@ -185,7 +190,7 @@ public class Utils {
 		}
 		return dest;
 	}
-	
+
 	public static int multiply(int a, int b) {
 		return a * b;
 	}
@@ -198,7 +203,8 @@ public class Utils {
 		return a;
 	}
 
-	public static double saturation(int lo, int up, double u) {
+	public static double saturation(int lo, int up, double u, double k) {
+		u = k * u;
 		if (u < lo)
 			return lo;
 		if (u > up)
@@ -209,12 +215,11 @@ public class Utils {
 	public static int ramp(int initialOutput, int slope, int t) {
 		return slope * t + initialOutput;
 	}
-	
+
 	public static double binaryStringToDouble(String str) {
 		return Double.longBitsToDouble(new BigInteger(str, 2).longValue());
 	}
-	
-	
+
 	public static String doubleToBinaryString(double d) {
 		return Long.toBinaryString(Double.doubleToRawLongBits(d));
 	}

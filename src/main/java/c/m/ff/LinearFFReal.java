@@ -1,8 +1,8 @@
 package c.m.ff;
 
-import c.m.utils.Utils;
 import c.m.utils.Matrix;
 import c.m.utils.StringSplitter;
+import c.m.utils.Utils;
 
 public class LinearFFReal implements FitnessFunction {
 
@@ -11,12 +11,12 @@ public class LinearFFReal implements FitnessFunction {
 	double[] gNums;// genomeNumbers: weights,biases,etc.
 
 	public double[][] input() {
-		double[][] r = {{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }};
+		double[][] r = { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } };
 		return r;
 	}
 
 	public double[][] target() {
-		double[][] r = {{ 432, 930, 1705, 1216, 2326, 2790, 3255, 4184, 4185, 4419 }};
+		double[][] r = { { 432, 930, 1705, 1216, 2326, 2790, 3255, 4184, 4185, 4419 } };
 		return r;
 	}
 

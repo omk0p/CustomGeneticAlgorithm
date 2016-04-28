@@ -17,6 +17,8 @@ import org.jgap.InvalidConfigurationException;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.DoubleGene;
 
+import c.m.system.DataProvider;
+
 public class SimpleExample {
 	/** String containing the CVS revision. Read out via reflection! */
 	private static final String CVS_REVISION = "$Revision: 1.9 $";
@@ -45,7 +47,7 @@ public class SimpleExample {
 			chromeSize = 62;
 		}
 
-		NonLinearFF ff = new NonLinearFF();
+		NonLinearFF ff = new NonLinearFF(DataProvider.getInput(), DataProvider.getTarget());
 		try {
 			DoubleGene gene = new DoubleGene(gaConf, -1.5, 1.5);
 

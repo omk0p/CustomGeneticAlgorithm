@@ -11,11 +11,11 @@ public class Individual {
 	private int[] genes = new int[SIZE];
 	private double fitnessValue;
 	private FitnessFunction ff;
-	
+
 	public static void setSize(int size) {
 		SIZE = size;
 	}
-	
+
 	public Individual(FitnessFunction ff) {
 		this.ff = ff;
 	}
@@ -63,8 +63,8 @@ public class Individual {
 		 * for(int i=0; i<SIZE; ++i) { fitness += this.getGene(i); }
 		 */
 		fitness = ff.evaluate(Utils.split(genes), ff.target());// TODO
-																								// lossy
-																								// conversion
+																// lossy
+																// conversion
 		this.setFitnessValue(fitness);
 
 		return fitness;

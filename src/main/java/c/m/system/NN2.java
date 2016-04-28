@@ -1,13 +1,4 @@
-/*
- * This file is part of JGAP.
- *
- * JGAP offers a dual license model containing the LGPL as well as the MPL.
- *
- * For licensing information please see the file license.txt included with JGAP
- * or have a look at the top of class org.jgap.Chromosome which representatively
- * includes the JGAP license policy applicable for any file delivered with JGAP.
- */
-package c.m.jgap;
+package c.m.system;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
@@ -17,23 +8,27 @@ import org.jgap.InvalidConfigurationException;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.DoubleGene;
 
-import c.m.system.DataProvider;
+import c.m.jgap.NonLinearFF;
 
-public class SimpleExampleReverse {
-	public static void main(String[] args) {
-		int numEvolutions = 2000;
-		Configuration gaConf = new DefaultConfiguration();
+public class NN2 implements NN, Block {
+
+	IChromosome fittest;
+	NonLinearFF ff;
+	String name;
+	Genotype genotype = null;
+	int numEvolutions = 1000;
+
+	public NN2(String name) {
+		this.name = name;
+
+		ff = new NonLinearFF();
+
+		Configuration gaConf = new DefaultConfiguration(name, name);
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(false);
-		Genotype genotype = null;
-		int chromeSize;
-		if (args.length > 0) {
-			chromeSize = Integer.parseInt(args[0]);
-		} else {
-			chromeSize = 62;
-		}
 
-		NonLinearFFReverse ff = new NonLinearFFReverse(DataProvider.getReverseInput(), DataProvider.getReverseTarget());
+		int chromeSize = 62;
+
 		try {
 			DoubleGene gene = new DoubleGene(gaConf, -1.0, 1.0);
 
@@ -47,14 +42,21 @@ public class SimpleExampleReverse {
 			e.printStackTrace();
 			System.exit(-2);
 		}
-		int progress = 0;
+	}
+
+	@Override
+	public double[][] output(double[][] in) {
+		return ff.output(in);
+	}
+
+	@Override
+	public void learnCompletely(double[][] input, double[][] target) {
 		int percentEvolution = numEvolutions / 100;
 		for (int i = 0; i < numEvolutions; i++) {
 			genotype.evolve();
 			// Print progress.
 			// ---------------
 			if (percentEvolution > 0 && i % percentEvolution == 0) {
-				progress++;
 				IChromosome fittest = genotype.getFittestChromosome();
 				double fitness = fittest.getFitnessValue();
 				System.out.println("Currently fittest Chromosome has fitness " + fitness);
@@ -63,9 +65,21 @@ public class SimpleExampleReverse {
 		}
 		// Print summary.
 		// --------------
-		IChromosome fittest = genotype.getFittestChromosome();
+		this.fittest = genotype.getFittestChromosome();
+
 		ff.evaluate(fittest);
 		System.out.println("Fittest Chromosome has fitness " + fittest.getFitnessValue());
-
 	}
+
+	@Override
+	public void learnOnce(double[][] input, double[][] target) {
+		genotype.evolve();
+		// Print progress.
+		/*
+		 * IChromosome fittest = genotype.getFittestChromosome(); double fitness
+		 * = fittest.getFitnessValue(); System.out.println(
+		 * "Currently fittest Chromosome has fitness " + fitness);
+		 */
+	}
+
 }

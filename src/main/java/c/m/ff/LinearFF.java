@@ -7,7 +7,7 @@ public class LinearFF implements FitnessFunction {
 	private static final int GENOME_SIZE = 11;
 	long k;
 	double[][] input = { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } };
-	
+
 	public double[][] input() {
 		return input;
 	}
@@ -15,7 +15,7 @@ public class LinearFF implements FitnessFunction {
 	public void setInput(double[][] input) {
 		this.input = input;
 	}
-	
+
 	public double[][] target() {
 		double[][] r = { { 465, 930, 1395, 1860, 2325, 2790, 3255, 3720, 4185, 4650 } };
 		return r;

@@ -13,24 +13,24 @@ import c.m.jgap.NonLinearFFReverse;
 public class NN1 implements Block, NN {
 
 	IChromosome fittest;
-	NonLinearFFReverse ff = new NonLinearFFReverse();
+	NonLinearFFReverse ff;
+	String name;
+	Genotype genotype = null;
+	int numEvolutions = 1000;
 
-	@Override
-	public double[][] output(double[][] in) {
-		return ff.output(in);
-	}
+	public NN1(String name) {
+		this.name = name;
 
-	@Override
-	public void learn() {
-		int numEvolutions = 2000;
-		Configuration gaConf = new DefaultConfiguration();
+		ff = new NonLinearFFReverse();
+
+		Configuration gaConf = new DefaultConfiguration(name, name);
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(false);
-		Genotype genotype = null;
+
 		int chromeSize = 62;
 
 		try {
-			DoubleGene gene = new DoubleGene(gaConf, -1.0, 1.0);
+			DoubleGene gene = new DoubleGene(gaConf, -1.5, 1.5);
 
 			IChromosome sampleChromosome = new Chromosome(gaConf, gene, chromeSize);
 			gaConf.setSampleChromosome(sampleChromosome);
@@ -42,14 +42,21 @@ public class NN1 implements Block, NN {
 			e.printStackTrace();
 			System.exit(-2);
 		}
-		int progress = 0;
+	}
+
+	@Override
+	public double[][] output(double[][] in) {
+		return ff.output(in);
+	}
+
+	@Override
+	public void learnCompletely(double[][] input, double[][] target) {
 		int percentEvolution = numEvolutions / 100;
 		for (int i = 0; i < numEvolutions; i++) {
 			genotype.evolve();
 			// Print progress.
 			// ---------------
 			if (percentEvolution > 0 && i % percentEvolution == 0) {
-				progress++;
 				IChromosome fittest = genotype.getFittestChromosome();
 				double fitness = fittest.getFitnessValue();
 				System.out.println("Currently fittest Chromosome has fitness " + fitness);
@@ -59,10 +66,25 @@ public class NN1 implements Block, NN {
 		// Print summary.
 		// --------------
 		this.fittest = genotype.getFittestChromosome();
+
+		ff.evaluate(fittest);
+		System.out.println("Fittest Chromosome has fitness " + fittest.getFitnessValue());
+	}
+
+	@Override
+	public void learnOnce(double[][] input, double[][] target) {
+		genotype.evolve();
+		// Print progress.
 		/*
-		 * ff.evaluate(fittest); System.out.println(
-		 * "Fittest Chromosome has fitness " + fittest.getFitnessValue());
+		 * IChromosome fittest = genotype.getFittestChromosome(); double fitness
+		 * = fittest.getFitnessValue(); System.out.println(
+		 * "Currently fittest Chromosome has fitness " + fitness);
 		 */
+	}
+
+	public double[][] outputBest(double[][] input) {
+		ff.evaluate(genotype.getFittestChromosome());
+		return ff.output(input);
 	}
 
 }
