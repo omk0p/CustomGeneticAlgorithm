@@ -12,13 +12,14 @@ public class NonLinearFF extends FitnessFunction {
 	private static final long serialVersionUID = 1L;
 	public static final double LOWER_LIMIT = -2.0;
 	public static final double UPPER_LIMIT = 2.0;
-	public static final int CHROME_SIZE = 62;
-	public static final double MSE_UPPER_LIMIT = 200.0;
 	public static final int INPUT_NUM = 3;
-	public static final int HIDDEN_NUM = 10;
+	public static final int HIDDEN_NUM = 9;
 	public static final int OUTPUT_NUM = 2;
+	public static final int CHROME_SIZE = HIDDEN_NUM * 1 + HIDDEN_NUM * INPUT_NUM + OUTPUT_NUM * HIDDEN_NUM
+			+ OUTPUT_NUM * 1;
+	public static final double MSE_UPPER_LIMIT = 200.0;
 
-	double[] gNums = new double[62];
+	double[] gNums = new double[CHROME_SIZE];
 
 	double[][] input = { { -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
 			{ -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0 },
@@ -55,20 +56,36 @@ public class NonLinearFF extends FitnessFunction {
 		double[][] x = input;
 		double[][] t = target;
 
-		double[][] b1 = { { gNums[0] }, { gNums[1] }, { gNums[2] }, { gNums[3] }, { gNums[4] }, { gNums[5] },
-				{ gNums[6] }, { gNums[7] }, { gNums[8] }, { gNums[9] } };
-		double[][] IW = { { gNums[10], gNums[11], gNums[12] }, { gNums[13], gNums[14], gNums[15] },
-				{ gNums[16], gNums[17], gNums[18] }, { gNums[19], gNums[20], gNums[21] },
-				{ gNums[22], gNums[23], gNums[24] }, { gNums[25], gNums[26], gNums[27] },
-				{ gNums[28], gNums[29], gNums[30] }, { gNums[31], gNums[32], gNums[33] },
-				{ gNums[34], gNums[35], gNums[36] }, { gNums[37], gNums[38], gNums[39] } };
-		double[][] LW = {
-				{ gNums[40], gNums[41], gNums[42], gNums[43], gNums[44], gNums[45], gNums[46], gNums[47], gNums[48],
-						gNums[49] },
-				{ gNums[50], gNums[51], gNums[52], gNums[53], gNums[54], gNums[55], gNums[56], gNums[57], gNums[58],
-						gNums[59] } };
+		double[][] b1 = new double[HIDDEN_NUM][1];
+		int gCount = 0;
+		for (int i = 0; i < b1.length; i++) {
+			for (int j = 0; j < Utils.size(b1); j++) {
+				b1[i][j] = gNums[gCount];
+				gCount++;
+			}
+		}
+		double[][] IW = new double[HIDDEN_NUM][INPUT_NUM];
+		for (int i = 0; i < IW.length; i++) {
+			for (int j = 0; j < Utils.size(IW); j++) {
+				IW[i][j] = gNums[gCount];
+				gCount++;
+			}
+		}
+		double[][] LW = new double[OUTPUT_NUM][HIDDEN_NUM];
+		for (int i = 0; i < LW.length; i++) {
+			for (int j = 0; j < Utils.size(LW); j++) {
+				LW[i][j] = gNums[gCount];
+				gCount++;
+			}
+		}
 
-		double[][] b2 = { { gNums[60] }, { gNums[61] } };
+		double[][] b2 = new double[OUTPUT_NUM][1];
+		for (int i = 0; i < b2.length; i++) {
+			for (int j = 0; j < Utils.size(b2); j++) {
+				b2[i][j] = gNums[gCount];
+				gCount++;
+			}
+		}
 
 		double[][] xn = Utils.mapMinMax(x);
 		double[][] tn = Utils.mapMinMax(t);

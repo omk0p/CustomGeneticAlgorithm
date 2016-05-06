@@ -8,7 +8,7 @@ public class CO implements Block {
 	double k = 1;
 
 	public void influenceF() {
-		k = 1.3;
+		k = 1.1;
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import c.m.utils.Utils;
 
 public class SystemRunner {
 
-	static int MAX_ITERATIONS = 1000;
+	static int MAX_ITERATIONS = 2000;
 	double[][] y;
 	double[][] g = DataProvider.getTarget();
 
@@ -13,10 +13,8 @@ public class SystemRunner {
 		NN1 nn1 = new NN1("nn1");
 		NN2 nn2 = new NN2("nn2");
 		CO co = new CO();
-		// nn1.learnCompletely(DataProvider.getReverseInput(),
-		// DataProvider.getReverseTarget());
-		// nn2.learnCompletely(DataProvider.getInput(),
-		// DataProvider.getTarget());
+		nn1.learnCompletely(DataProvider.getReverseInput(), DataProvider.getReverseTarget());
+		nn2.learnCompletely(DataProvider.getInput(), DataProvider.getTarget());
 
 		int percentEvolution = MAX_ITERATIONS / 100;
 
@@ -27,7 +25,7 @@ public class SystemRunner {
 			y = co.output(u);
 			if (percentEvolution > 0 && i % percentEvolution == 0) {
 				// Utils.print("y", y);
-				if (i / percentEvolution == 50) {
+				if (i / percentEvolution == 3) {
 					double[][] uBest = nn1.outputBest(g);
 					double[][] yBest = co.output(uBest);
 					Utils.print("MSE for y", Utils.mse(yBest, DataProvider.getTarget()));

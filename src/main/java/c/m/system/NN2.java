@@ -9,6 +9,7 @@ import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.DoubleGene;
 
 import c.m.jgap.NonLinearFF;
+import c.m.jgap.NonLinearFFReverse;
 
 public class NN2 implements NN, Block {
 
@@ -16,7 +17,7 @@ public class NN2 implements NN, Block {
 	NonLinearFF ff;
 	String name;
 	Genotype genotype = null;
-	int numEvolutions = 1000;
+	int numEvolutions = 800;
 
 	public NN2(String name) {
 		this.name = name;
@@ -27,12 +28,10 @@ public class NN2 implements NN, Block {
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(false);
 
-		int chromeSize = 62;
-
 		try {
 			DoubleGene gene = new DoubleGene(gaConf, -1.0, 1.0);
 
-			IChromosome sampleChromosome = new Chromosome(gaConf, gene, chromeSize);
+			IChromosome sampleChromosome = new Chromosome(gaConf, gene, NonLinearFF.CHROME_SIZE);
 			gaConf.setSampleChromosome(sampleChromosome);
 			gaConf.setPopulationSize(20);
 
@@ -56,18 +55,18 @@ public class NN2 implements NN, Block {
 			genotype.evolve();
 			// Print progress.
 			// ---------------
-			if (percentEvolution > 0 && i % percentEvolution == 0) {
+			/*if (percentEvolution > 0 && i % percentEvolution == 0) {
 				IChromosome fittest = genotype.getFittestChromosome();
 				double fitness = fittest.getFitnessValue();
 				System.out.println("Currently fittest Chromosome has fitness " + fitness);
 
-			}
+			}*/
 		}
 		// Print summary.
 		// --------------
 		this.fittest = genotype.getFittestChromosome();
 
-		ff.evaluate(fittest);
+		//ff.evaluate(fittest);
 		System.out.println("Fittest Chromosome has fitness " + fittest.getFitnessValue());
 	}
 

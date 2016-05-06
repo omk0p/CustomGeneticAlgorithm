@@ -16,7 +16,7 @@ public class NN1 implements Block, NN {
 	NonLinearFFReverse ff;
 	String name;
 	Genotype genotype = null;
-	int numEvolutions = 1000;
+	int numEvolutions = 800;
 
 	public NN1(String name) {
 		this.name = name;
@@ -27,12 +27,10 @@ public class NN1 implements Block, NN {
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(false);
 
-		int chromeSize = 62;
-
 		try {
 			DoubleGene gene = new DoubleGene(gaConf, -1.5, 1.5);
 
-			IChromosome sampleChromosome = new Chromosome(gaConf, gene, chromeSize);
+			IChromosome sampleChromosome = new Chromosome(gaConf, gene, NonLinearFFReverse.CHROME_SIZE);
 			gaConf.setSampleChromosome(sampleChromosome);
 			gaConf.setPopulationSize(20);
 
@@ -56,18 +54,18 @@ public class NN1 implements Block, NN {
 			genotype.evolve();
 			// Print progress.
 			// ---------------
-			if (percentEvolution > 0 && i % percentEvolution == 0) {
+			/*if (percentEvolution > 0 && i % percentEvolution == 0) {
 				IChromosome fittest = genotype.getFittestChromosome();
 				double fitness = fittest.getFitnessValue();
 				System.out.println("Currently fittest Chromosome has fitness " + fitness);
 
-			}
+			}*/
 		}
 		// Print summary.
 		// --------------
 		this.fittest = genotype.getFittestChromosome();
 
-		ff.evaluate(fittest);
+		//ff.evaluate(fittest);
 		System.out.println("Fittest Chromosome has fitness " + fittest.getFitnessValue());
 	}
 
