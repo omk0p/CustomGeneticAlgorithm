@@ -2,7 +2,7 @@ package c.m.system;
 
 import c.m.utils.Utils;
 
-public class CO implements Block {
+public class CO implements BlockCO {
 	int outputs = 2;
 	int dataSeqSize = 21;
 	double k = 1;

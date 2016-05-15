@@ -47,7 +47,8 @@ public class SimpleExample {
 			chromeSize = 62;
 		}
 
-		NonLinearFF ff = new NonLinearFF(DataProvider.getInput(), DataProvider.getTarget());
+		DataProvider dataProvider = DataProvider.getProvider();
+		NonLinearFF ff = new NonLinearFF(dataProvider.getInput(), dataProvider.getTarget());
 		try {
 			DoubleGene gene = new DoubleGene(gaConf, -1.5, 1.5);
 

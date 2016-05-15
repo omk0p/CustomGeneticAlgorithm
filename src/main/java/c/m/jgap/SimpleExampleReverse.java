@@ -33,7 +33,8 @@ public class SimpleExampleReverse {
 			chromeSize = 62;
 		}
 
-		NonLinearFFReverse ff = new NonLinearFFReverse(DataProvider.getReverseInput(), DataProvider.getReverseTarget());
+		DataProvider dataProvider = DataProvider.getProvider();
+		NonLinearFFReverse ff = new NonLinearFFReverse(dataProvider .getReverseInput(), dataProvider.getReverseTarget());
 		try {
 			DoubleGene gene = new DoubleGene(gaConf, -1.0, 1.0);
 

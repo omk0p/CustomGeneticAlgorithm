@@ -146,6 +146,11 @@ public class Utils {
 		System.out.println(a);
 	}
 
+	public static void print(String n, String s) {
+		System.out.print(n + ": ");
+		System.out.println(s);
+	}
+	
 	public static void print(String n, double[][] a) {
 		System.out.println(n + ":");
 		for (double[] arr : a) {

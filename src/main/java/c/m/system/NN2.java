@@ -10,6 +10,7 @@ import org.jgap.impl.DoubleGene;
 
 import c.m.jgap.NonLinearFF;
 import c.m.jgap.NonLinearFFReverse;
+import c.m.utils.Utils;
 
 public class NN2 implements NN, Block {
 
@@ -18,18 +19,20 @@ public class NN2 implements NN, Block {
 	String name;
 	Genotype genotype = null;
 	int numEvolutions = 800;
-
-	public NN2(String name) {
+//	double[][] intput;
+//	double[][] output;
+	
+	public NN2(String name, double[][] in, double[][] out, NNError err2) {
 		this.name = name;
 
-		ff = new NonLinearFF();
+		ff = new NonLinearFF(in, out);
 
 		Configuration gaConf = new DefaultConfiguration(name, name);
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(false);
 
 		try {
-			DoubleGene gene = new DoubleGene(gaConf, -1.0, 1.0);
+			DoubleGene gene = new DoubleGene(gaConf, NonLinearFF.LOWER_LIMIT, NonLinearFF.UPPER_LIMIT);
 
 			IChromosome sampleChromosome = new Chromosome(gaConf, gene, NonLinearFF.CHROME_SIZE);
 			gaConf.setSampleChromosome(sampleChromosome);
@@ -65,8 +68,8 @@ public class NN2 implements NN, Block {
 		// Print summary.
 		// --------------
 		this.fittest = genotype.getFittestChromosome();
-
-		//ff.evaluate(fittest);
+		ff.evaluate(fittest);
+		Utils.print("Fittest Chromosome result vector ", ff.output(input));
 		System.out.println("Fittest Chromosome has fitness " + fittest.getFitnessValue());
 	}
 
